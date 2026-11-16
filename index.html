@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0b1220" />
+  <title>SmartLiving | Property & Deposit Management</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/ethers@6.13.5/dist/ethers.umd.min.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <a class="brand" href="#dashboard"><span class="brand-icon">⌂</span><span><strong>smartliving<span class="brand-dot">.</span></strong><small>PROPERTY MANAGEMENT</small></span></a>
+      <div class="workspace-label">WORKSPACE</div>
+      <nav class="nav" aria-label="เมนูหลัก">
+        <button class="nav-item active" data-page="dashboard"><span>▦</span> ภาพรวมระบบ</button>
+        <button class="nav-item" data-page="properties"><span>▤</span> อสังหาริมทรัพย์</button>
+        <button class="nav-item" data-page="agreements"><span>▧</span> สัญญาเช่า</button>
+        <button class="nav-item" data-page="payments"><span>◈</span> ชำระเงิน / เงินประกัน</button>
+        <button class="nav-item" data-page="disputes"><span>⚖</span> ข้อพิพาทและคืนเงิน</button>
+        <button class="nav-item" data-page="history"><span>◷</span> ประวัติธุรกรรม</button>
+      </nav>
+      <div class="sidebar-bottom"><div class="help-box"><span class="help-icon">✦</span><strong>Blockchain Ready</strong><p>เปลี่ยนจากโหมดตัวอย่างเป็น Smart Contract ที่ Deploy แล้วได้ในหน้าตั้งค่า</p><button id="sidebarSettings" class="text-action">ตั้งค่าการเชื่อมต่อ ↗</button></div><div class="sidebar-foot">© 2026 SmartLiving Property</div></div>
+    </aside>
+    <div class="main-wrap">
+      <header class="topbar"><button class="mobile-menu" id="mobileMenu" aria-label="เปิดเมนู">☰</button><div class="breadcrumbs">SmartLiving <span>/</span> <strong id="breadcrumb">Dashboard</strong></div><div class="top-actions"><span class="mode-pill" id="modeLabel">● DEMO MODE</span><button class="btn btn-ghost btn-small" id="settingsBtn">⚙ ตั้งค่า</button><button class="btn btn-primary btn-small" id="connectBtn">◈ เชื่อมต่อ Wallet</button></div></header>
+      <main class="content">
+        <section id="page-dashboard" class="page active"><div class="page-heading"><div><p class="eyebrow">PROPERTY OVERVIEW</p><h1>ภาพรวมระบบ <span class="wave">✦</span></h1><p class="subtitle">จัดการทรัพย์สิน สัญญาเช่า และเงินประกันได้ในที่เดียว</p></div><button class="btn btn-primary" data-action="register-property">+ เพิ่มห้องเช่าใหม่</button></div>
+          <div class="hero"><div class="hero-content"><div class="hero-tag">✦ SMART PROPERTY PLATFORM</div><h2>บริหารอสังหาริมทรัพย์<br /><em>อย่างโปร่งใสด้วย Blockchain</em></h2><p>ติดตามสถานะสัญญา ตรวจสอบเงินประกัน และบันทึกทุกธุรกรรมเพื่อความมั่นใจของทั้งผู้เช่าและเจ้าของ</p><button class="btn btn-light" data-page="agreements">ดูสัญญาทั้งหมด ↗</button></div><div class="hero-art" aria-hidden="true"><div class="art-orbit orbit-one"></div><div class="art-orbit orbit-two"></div><div class="art-building"><div class="windows">▣ ▣ ▣<br>▣ ▣ ▣<br>▣ ▣ ▣</div></div><div class="art-card"><span>✓</span> SECURED ON-CHAIN</div></div></div>
+          <div class="metrics"><div class="metric"><div class="metric-top"><span>จำนวนห้องทั้งหมด</span><span class="metric-icon lilac">▤</span></div><strong id="metricProperties">0</strong><small>ห้องที่ลงทะเบียนแล้ว</small></div><div class="metric"><div class="metric-top"><span>สัญญาทั้งหมด</span><span class="metric-icon blue">▧</span></div><strong id="metricAgreements">0</strong><small>รายการสัญญาเช่า</small></div><div class="metric"><div class="metric-top"><span>เงินประกันคงค้าง</span><span class="metric-icon peach">◈</span></div><strong id="metricDeposits">0.000 <span>ETH</span></strong><small>เงินที่ล็อกอยู่ในสัญญา</small></div><div class="metric"><div class="metric-top"><span>ข้อพิพาทที่เปิดอยู่</span><span class="metric-icon mint">⚖</span></div><strong id="metricDisputes">0</strong><small>รายการที่รอการพิจารณา</small></div></div>
+          <div class="two-col"><div class="panel"><div class="panel-head"><div><h3>สัญญาเช่าล่าสุด</h3><p>ความเคลื่อนไหวล่าสุดของสัญญา</p></div><button class="link-btn" data-page="agreements">ดูทั้งหมด →</button></div><div id="recentAgreements"></div></div><div class="panel"><div class="panel-head"><div><h3>กิจกรรมล่าสุด</h3><p>รายการธุรกรรมที่เพิ่งบันทึก</p></div><button class="link-btn" data-page="history">ดูประวัติ →</button></div><div id="recentHistory"></div></div></div>
+        </section>
+        <section id="page-properties" class="page"><div class="page-heading"><div><p class="eyebrow">PROPERTY LIST</p><h1>จัดการอสังหาริมทรัพย์</h1><p class="subtitle">เพิ่มห้องเช่าและกำหนดอัตราค่าเช่ากับเงินประกัน</p></div><button class="btn btn-primary" data-action="register-property">+ ลงทะเบียนห้องเช่า</button></div><div class="section-toolbar"><span id="propertiesCountLabel">รายการทรัพย์สิน</span><div class="inline-search"><span>⌕</span><input id="propertySearch" placeholder="ค้นหาชื่อห้อง..." /></div></div><div id="propertyGrid" class="property-grid"></div></section>
+        <section id="page-agreements" class="page"><div class="page-heading"><div><p class="eyebrow">RENTAL AGREEMENTS</p><h1>สัญญาเช่า</h1><p class="subtitle">สร้างสัญญา ยืนยันด้วย Wallet และตรวจสอบรายละเอียด</p></div><button class="btn btn-primary" data-action="create-agreement">+ สร้างสัญญาเช่า</button></div><div class="panel panel-table"><div class="table-scroll"><table><thead><tr><th>สัญญา</th><th>ทรัพย์สิน</th><th>ผู้เช่า</th><th>ระยะเวลา</th><th>สถานะ</th><th></th></tr></thead><tbody id="agreementsTable"></tbody></table></div></div></section>
+        <section id="page-payments" class="page"><div class="page-heading"><div><p class="eyebrow">RENT & SECURITY</p><h1>ชำระเงินและเงินประกัน</h1><p class="subtitle">ฝาก ETH เข้าสู่สัญญาและบันทึกการจ่ายค่าเช่ารายงวด</p></div></div><div class="info-strip">ⓘ เงินประกันจะเก็บไว้ใน Smart Contract ส่วนค่าเช่าจะโอนไปยัง Wallet เจ้าของห้องโดยตรงเมื่อชำระสำเร็จ</div><div id="paymentList" class="stack-list"></div></section>
+        <section id="page-disputes" class="page"><div class="page-heading"><div><p class="eyebrow">SETTLEMENT & DISPUTE</p><h1>คืนเงินประกันและข้อพิพาท</h1><p class="subtitle">ตรวจห้อง อนุมัติยอดหัก และระงับข้อพิพาทตามเงื่อนไขในสัญญา</p></div></div><div class="info-strip">ⓘ การเสนอคืนเงินและเปิดข้อพิพาททำได้หลังวันสิ้นสุดสัญญาเท่านั้น ผู้ตัดสินข้อพิพาทต้องเป็น Wallet อิสระที่ระบุในสัญญา</div><div id="disputeList" class="stack-list"></div></section>
+        <section id="page-history" class="page"><div class="page-heading"><div><p class="eyebrow">AUDIT TRAIL</p><h1>ประวัติธุรกรรม</h1><p class="subtitle">ตรวจสอบการเปลี่ยนแปลงและธุรกรรมย้อนหลัง</p></div><button class="btn btn-outline" id="refreshHistory">↻ โหลดข้อมูลใหม่</button></div><div class="panel"><div id="historyList"></div></div></section>
+      </main>
+    </div>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <div class="modal-backdrop hidden" id="modalBackdrop"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal-header"><div><p class="eyebrow">SMARTLIVING PROPERTY</p><h2 id="modalTitle">ทำรายการ</h2></div><button class="icon-button" id="closeModal" aria-label="ปิด">×</button></div><div id="modalBody"></div></div></div>
+</body>
+</html>
